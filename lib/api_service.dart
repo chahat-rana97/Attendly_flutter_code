@@ -133,4 +133,54 @@ class ApiService {
       throw Exception("Failed to load history: ${res.body}");
     }
   }
+
+  // -------------------- LEAVE REQUEST --------------------
+
+  static Future<bool> requestLeave({
+    required int employeeId,
+    required String startDate,
+    required String endDate,
+    required String reason,
+  }) async {
+    final url = Uri.parse("$baseUrl/leave-request");
+    final res = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "employee_id": employeeId,
+        "start_date": startDate,
+        "end_date": endDate,
+        "reason": reason,
+      }),
+    );
+
+    if (res.statusCode == 200) {
+      final data = jsonDecode(res.body);
+      return data["success"] == true;
+    }
+    return false;
+  }
+
+  static Future<List<Map<String, dynamic>>> getLeaveRequests(int employeeId) async {
+    final url = Uri.parse("$baseUrl/leave-requests/$employeeId");
+    final res = await http.get(url);
+
+    if (res.statusCode == 200) {
+      final List<dynamic> rawData = jsonDecode(res.body);
+      return rawData.map((item) {
+        return {
+          "id": item["id"],
+          "startDate": item["start_date"],
+          "endDate": item["end_date"],
+          "reason": item["reason"],
+          "status": item["status"], // Pending, Approved, Rejected
+        };
+      }).toList();
+    } else {
+      throw Exception("Comming soon -- leave requests: ${res.body}");
+    }
+  }
+
 }
+
+

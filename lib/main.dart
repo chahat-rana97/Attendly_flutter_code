@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'api_service.dart';
 import 'auth_screens.dart';
@@ -12,12 +13,31 @@ class AttendanceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Widget app = MaterialApp(
       title: "Hike Attendance",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const AuthGate(),
     );
+
+    // ✅ On Web: lock the app inside 9:16 aspect ratio (mobile-like)
+    if (kIsWeb) {
+      app = Center(
+        child: AspectRatio(
+          aspectRatio: 9 / 16,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.black12),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: app,
+          ),
+        ),
+      );
+    }
+
+    return app;
   }
 }
 

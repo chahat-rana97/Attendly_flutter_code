@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'api_service.dart';
 import 'employee_home_screen.dart';
+
+// ✅ Added Google Fonts dependency
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -80,120 +83,164 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6C63FF),
+      backgroundColor: Colors.grey[100],
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Card(
-            elevation: 8,
-            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+            elevation: 10,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.person_add_alt, size: 50, color: Colors.deepPurple),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Create Account",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.deepPurple.shade50,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(Icons.person_add_alt, size: 50, color: Colors.deepPurple.shade600),
                   ),
-                  const SizedBox(height: 4),
-                  const Text(
+                  const SizedBox(height: 16),
+                  Text(
+                    "Create Account",
+                    style: GoogleFonts.poppins(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple.shade800,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
                     "Join our team! Create your employee account.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.black54,
+                    ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
 
                   TextField(
                     controller: _name,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.person),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.person, color: Colors.deepPurple),
                       labelText: "Full Name",
-                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   TextField(
                     controller: _email,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.email),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.email, color: Colors.deepPurple),
                       labelText: "Email Address",
-                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   DropdownButtonFormField<String>(
                     value: _selectedDepartment,
                     items: _departments.map((dept) {
                       return DropdownMenuItem(
                         value: dept,
-                        child: Text(dept),
+                        child: Text(dept, style: GoogleFonts.poppins()),
                       );
                     }).toList(),
                     onChanged: (val) {
                       setState(() => _selectedDepartment = val);
                     },
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.apartment),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.apartment, color: Colors.deepPurple),
                       labelText: "Select Department",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
-                      labelText: "Password",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  TextField(
-                    controller: _confirmPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.lock_outline),
-                      labelText: "Confirm Password",
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      icon: const Icon(Icons.person_add),
-                      onPressed: _isBusy ? null : _signUp,
-                      label: Text(
-                        _isBusy ? "Please wait..." : "Create Account",
-                        style: const TextStyle(fontSize: 16),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
 
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock, color: Colors.deepPurple),
+                      labelText: "Password",
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  TextField(
+                    controller: _confirmPassword,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock_outline, color: Colors.deepPurple),
+                      labelText: "Confirm Password",
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurple.shade600,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 5,
+                      ),
+                      icon: const Icon(Icons.person_add, size: 20),
+                      onPressed: _isBusy ? null : _signUp,
+                      label: Text(
+                        _isBusy ? "Please wait..." : "Create Account",
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already have an account? "),
+                      Text(
+                        "Already have an account? ",
+                        style: GoogleFonts.poppins(),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -201,10 +248,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             MaterialPageRoute(builder: (_) => const SignInScreen()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           "Sign in here",
-                          style: TextStyle(
-                            color: Colors.deepPurple,
+                          style: GoogleFonts.poppins(
+                            color: Colors.deepPurple.shade600,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -221,7 +268,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-// ✅ Added SignInScreen here
+// ✅ Refactored SignInScreen for a professional and aesthetic look
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -280,80 +327,109 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6C63FF),
+      backgroundColor: Colors.grey[100],
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
           child: Card(
-            elevation: 8,
-            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+            elevation: 10,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(24),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.login, size: 50, color: Colors.deepPurple),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.deepPurple.shade50,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    child: Icon(Icons.login, size: 50, color: Colors.deepPurple.shade600),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Welcome Back",
+                    style: GoogleFonts.poppins(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple.shade800,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Sign In",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    "Welcome back! Please log in to continue.",
+                  Text(
+                    "Please log in to your employee account.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      color: Colors.black54,
+                    ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
 
                   TextField(
                     controller: _email,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.email),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.email, color: Colors.deepPurple),
                       labelText: "Email Address",
-                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   TextField(
                     controller: _password,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.lock),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock, color: Colors.deepPurple),
                       labelText: "Password",
-                      border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
 
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurple,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: Colors.deepPurple.shade600,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(12),
                         ),
+                        elevation: 5,
                       ),
-                      icon: const Icon(Icons.login),
+                      icon: const Icon(Icons.login, size: 20),
                       onPressed: _isBusy ? null : _signIn,
                       label: Text(
                         _isBusy ? "Please wait..." : "Sign In",
-                        style: const TextStyle(fontSize: 16),
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("New user? "),
+                      Text(
+                        "New user? ",
+                        style: GoogleFonts.poppins(),
+                      ),
                       GestureDetector(
                         onTap: () {
                           Navigator.pushReplacement(
@@ -361,10 +437,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             MaterialPageRoute(builder: (_) => const SignUpScreen()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           "Create an account",
-                          style: TextStyle(
-                            color: Colors.deepPurple,
+                          style: GoogleFonts.poppins(
+                            color: Colors.deepPurple.shade600,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

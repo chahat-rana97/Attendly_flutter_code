@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'attendance_page.dart';
 import 'api_service.dart';
+import 'leave_request_page.dart';
+
 
 class EmployeeHomeScreen extends StatefulWidget {
   final int employeeId;
@@ -388,8 +390,17 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
             ListTile(
               leading: const Icon(Icons.event_available, color: Colors.blue),
               title: const Text("Leave Requests", style: TextStyle(fontSize: 16)),
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.pop(context); // close drawer first
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => LeaveRequestPage(employeeId: widget.employeeId),
+                  ),
+                );
+              },
             ),
+
           ],
         ),
       ),
